@@ -48,7 +48,8 @@ class PatientDetailAPIView(generics.RetrieveAPIView):
     # permission_classes = [permissions.IsAuthenticated]
     queryset = Patient.objects.all()
     serializer_class = PatientSerializer
-    lookup_field = 'pk'
+    # lookup_field = 'pk'
+    lookup_field = 'pesel'
 
 patient_detail_view = PatientDetailAPIView.as_view()
 

@@ -35,7 +35,7 @@ function AddPatient() {
                 creation_date: creation_date,
                 gender: gender,
             }),
-            });
+        });
         let resJson = await res.json();
         if (res.status === 200) {
             setName("");

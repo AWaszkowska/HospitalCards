@@ -20,8 +20,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Login from "./Login";
 import Main from "./Main";
-import AddStudy from "./AddStudy"
 import AddPatient from "./AddPatient"
+import AddStudy from "./AddStudy";
+import Patient from "./Patient"
 import "./index.css";
 import AllPatients from "./AllPatients";
  

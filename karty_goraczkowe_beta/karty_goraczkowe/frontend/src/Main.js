@@ -7,14 +7,20 @@ import AllPatients from "./AllPatients";
 import AddPatient from "./AddPatient";
 import axios from 'axios';
 import Patient from "./Patient";
+import AddStudy from "./AddStudy";
  
 // class Main extends Component {
 //   render() {
 function Main() {
   const [isShown, setIsShown] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
   const handleClick = e => { 
     setIsShown(false);
   };
+
+  const handleClickMenu = e => {
+    setShowMenu(!showMenu);
+  }
 
   const [patients, setPatients] = useState([]); // patients is a state variable, setPatients is a func which updates it
   const [filteredData, setFilteredData] = useState(patients);
@@ -54,10 +60,11 @@ function Main() {
     let result = [];
     console.log(value);
     result = patients.filter((data) => {
-      return data.Pesel.search(value) != -1;
+      return data.pesel.search(value) != -1;
     });
-      if (patients.pesel.includes(e.target.value))
-        {setFilteredData(result);}
+    setFilteredData(result);
+      // if (patients.pesel.includes(e.target.value))
+      //   {setFilteredData(result);}
   }
 
 
@@ -65,8 +72,9 @@ function Main() {
       
       <div>
         <Router>
+        
         <section id="nav-bar">
-
+          {isShown &&  (
           <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="logo.png" alt="logo"></img></a>
@@ -76,22 +84,26 @@ function Main() {
             </button> */}
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
-                <li><Link to="/AllPatients" onClick={handleClick} >All Patients</Link></li>
-                <li><Link to="/AddPatient" onClick={handleClick} >Add Patient</Link></li>
+                <li class="buttonic" ><Link to="/AllPatients" onClick={handleClick} >All Patients</Link></li>
+                <li class="buttonic2"><Link to="/AddPatient" onClick={handleClick} >Add Patient</Link></li>
               </ul>
               
               <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" onChange={(e) => handleSearch(e)} placeholder="Search Patient by Pesel" aria-label="Search"></input>
-                <div style={{padding:10}}>
+                <input class="form-control mr-sm-2" type="search" onChange={(e) => handleSearch(e)} onClick={handleClickMenu} placeholder="Search Patient by Pesel" aria-label="Search"></input>
+                {showMenu && (
+                <div class="dataResult" style={{padding:10}} onClick={handleClick}>
                   {filteredData.map((value,index)=>{
                   return(
-                  <div key={index}>
-                      {value.pesel}
-                  </div>
+                  // <a key={value.id} class="listpesel"><Link to={"/Patient/${Patient.id}"}>View</Link>
+                  //     {value.pesel}
+                  // </a>
+                  <li key={value.pesel} class="listpesel"><Link to={`/Patient/${value.pesel}`} onClick={handleClick}>{value.pesel}</Link>    
+                  </li>
                   )
                   })}
                 </div>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Go To This Patient</button>
+                )}
+                
               </form>
               
             </div>
@@ -99,7 +111,7 @@ function Main() {
           </div>
           
           </nav>
-
+          )}
 </section>
 {isShown && <Box/>}
 <section id="space">
@@ -120,6 +132,8 @@ function Main() {
 <Routes>
     <Route exact path="/AllPatients" element={<AllPatients />}></Route>
     <Route exact path="/AddPatient" element={<AddPatient />}></Route>
+    {/* we design a dynamic portion of url to be matched by putting a colon before */}
+    <Route exact path='/Patient/:pesel' element={<Patient />}></Route> 
   </Routes>
 </Router> 
       </div>
