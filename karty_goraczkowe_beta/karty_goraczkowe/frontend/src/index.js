@@ -27,6 +27,6 @@ import "./index.css";
 import AllPatients from "./AllPatients";
  
 ReactDOM.render(
-  <Main/>, 
+  <Login/>, 
   document.getElementById("root")
 );

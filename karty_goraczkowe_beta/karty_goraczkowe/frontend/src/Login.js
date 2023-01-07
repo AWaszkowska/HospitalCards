@@ -1,34 +1,118 @@
 import React, { Component } from "react";
 import './Login.css';
 import {Button, Container, Form} from "react-bootstrap";
+import {useState, useEffect} from 'react';
+import { BrowserRouter as Router, Route, Routes, NavLink, Link, } from "react-router-dom";
+import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./Main";
+import AllPatients from "./AllPatients";
+import AddPatient from "./AddPatient";
+import {useRef} from 'react';
 
-class Login extends Component {
-  render() {
+
+function Login() {
+  const [doctors, setDoctors] = useState([]); // doctors is a state variable, setPatients is a func which updates it
+  const inputRef = useRef(null);
+  const inputRef2 = useRef(null);
+  // let url="http://localhost:3000/Main";
+  // let element = <li class="buttonic" ><Link to="/Main" >Log in</Link></li>;
+  const [state,setState]=useState(false);
+  const [isShown, setIsShown] = useState(true);
+
+  const hideClick = e => { 
+    setIsShown(false);
+  };
+
+  const element = () => {
+    if (state){
+      return <li class="buttonic" ><Link to="/Main" onClick={hideClick} >Log in</Link></li>;
+    }
+    else{
+      return <p>Access Unauthorized</p>;
+    }
+  }
+
+  useEffect(() => {
+    axios
+    .get('http://127.0.0.1:8000/api/doctors/')
+    
+    .then(response => {
+    console.log(response.data)
+    setDoctors(response.data);
+
+    })
+    .catch(error => {
+    console.log('Error getting fake data: ' + error);
+    })
+    }, []);
+
+  function handleClick() {
+    console.log(inputRef.current.value);
+    console.log(inputRef2.current.value);
+    let usr = [];
+    let pas = [];
+    let userfound = [];
+    let passfound = [];
+    
+    usr = inputRef.current.value;
+    pas = inputRef2.current.value;
+    userfound = doctors.find((data) => {
+      return data.username === usr;
+    });
+    passfound = doctors.find((data) => {
+      return data.password === pas;
+    });
+    if (userfound && passfound) {
+      console.log('tru');
+      setState(true);
+      // console.log(state);
+      //element=<a class="btn btn-primary" href={url}>Log In</a>;
+    }
+    // if(state) element=<a class="btn btn-primary" href={url}>LinkedIn handle</a>;
+
+    
+
+  }
+
     return (
         <div>
+          <Router>
+            {isShown && (
           <Container id="main-container" className="d-grid h-100">
           <Form id="sign-in-form" className="text-center p-3 w-100">
             <h1 className="mb-3 fs-3 fw-normal">Body Temperature Cards Platform</h1>
             <Form.Group controlId="sign-in-email-address">
-              <Form.Control type="username" size="lg" placeholder="UserName" autoComplete="username" className="position-relative" />
+              <Form.Control type="username" size="lg" placeholder="UserName"  ref={inputRef} className="position-relative" />
             </Form.Group>
             <Form.Group className="mb-3" controlId="sign-in-password">
-              <Form.Control type="password" size="lg" placeholder="Password" autoComplete="current-password" className="position-relative" />
+              <Form.Control type="password" size="lg" placeholder="Password"  ref={inputRef2} className="position-relative" />
             </Form.Group>
             <Form.Group className="d-flex justify-content-center mb-4" controlId="remember-me">
             </Form.Group>
             <div className="d-grid">
-            <a href="http://localhost:3000/Main" class="btn btn-primary">Sign In</a>
-              {/* <Button variant="primary" size="lg">Sign in</Button> */}
+            <div>
+              {/* {userfound && <h2>{userfound.username}</h2>} */}
             </div>
+            
+            <a onClick={handleClick} class="btn btn-primary">Sign In</a>
+              
+            </div>
+            {/* <div>{state && element}</div> */}
+            {element()}
             <p className="mt-5 text-muted">&copy; 2021-2022</p>
           </Form>
         </Container>
+            )}
+        <Routes>
+          <Route path="/Main" element={<Main />}>
+          <Route path=":AllPatients" element={<AllPatients />} />
+          <Route path=":AddPatient" element={<AddPatient />} />
+          </Route>
+        </Routes>
+        </Router>
         </div>
     );
-  }
 }
 
 export default Login;

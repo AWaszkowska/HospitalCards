@@ -21,4 +21,5 @@ urlpatterns = [
     path('api/', include('api.urls')), # path to api (localhost) and everything in urls
     path('api/patients/', include('patients.urls')),
     path('api/authentic/', include('authentic.urls')),
+    path('api/doctors/', include('doctors.urls')),
 ]

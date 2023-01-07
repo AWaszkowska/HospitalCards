@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {useState, useEffect} from 'react';
 import {Button, Container, Form} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route, Routes, NavLink, Link, } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, NavLink, Link, Outlet, } from "react-router-dom";
 import AllPatients from "./AllPatients";
 import AddPatient from "./AddPatient";
 import axios from 'axios';
@@ -60,18 +60,17 @@ function Main() {
     let result = [];
     console.log(value);
     result = patients.filter((data) => {
-      return data.pesel.search(value) != -1;
+      return data.pesel.search(value) != -1; 
     });
     setFilteredData(result);
       // if (patients.pesel.includes(e.target.value))
       //   {setFilteredData(result);}
   }
 
-
     return (   
       
       <div>
-        <Router>
+        {/* <Router> */}
         
         <section id="nav-bar">
           {isShown &&  (
@@ -84,8 +83,8 @@ function Main() {
             </button> */}
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
-                <li class="buttonic" ><Link to="/AllPatients" onClick={handleClick} >All Patients</Link></li>
-                <li class="buttonic2"><Link to="/AddPatient" onClick={handleClick} >Add Patient</Link></li>
+                <li class="buttonic" ><Link to="/Main/AllPatients" onClick={handleClick} >All Patients</Link></li>
+                <li class="buttonic2"><Link to="/Main/AddPatient" onClick={handleClick} >Add Patient</Link></li>
               </ul>
               
               <form class="form-inline my-2 my-lg-0">
@@ -129,13 +128,14 @@ function Main() {
   </div>
 </div>
 </section> */}
-<Routes>
-    <Route exact path="/AllPatients" element={<AllPatients />}></Route>
-    <Route exact path="/AddPatient" element={<AddPatient />}></Route>
+{/* <Routes>
+    <Route path="/Main/AllPatients" element={<AllPatients />}></Route>
+    <Route exact path="/AddPatient" element={<AddPatient />}></Route> */}
     {/* we design a dynamic portion of url to be matched by putting a colon before */}
-    <Route exact path='/Patient/:pesel' element={<Patient />}></Route> 
-  </Routes>
-</Router> 
+    {/* <Route exact path='/Patient/:pesel' element={<Patient />}></Route> 
+  </Routes> */}
+{/* </Router>  */}
+      <Outlet/>
       </div>
            
     );

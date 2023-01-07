@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_filters',
     'api', # add this to make work
     'patients',
+    'doctors',
     'authentic',
     'corsheaders',
 ]
