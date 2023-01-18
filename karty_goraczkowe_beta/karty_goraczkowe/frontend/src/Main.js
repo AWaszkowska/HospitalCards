@@ -96,7 +96,7 @@ function Main() {
                   // <a key={value.id} class="listpesel"><Link to={"/Patient/${Patient.id}"}>View</Link>
                   //     {value.pesel}
                   // </a>
-                  <li key={value.pesel} class="listpesel"><Link to={`/Patient/${value.pesel}`} onClick={handleClick}>{value.pesel}</Link>    
+                  <li key={value.pesel} class="listpesel"><Link to={`/Main/Patient/${value.pesel}`} onClick={handleClick}>{value.pesel}</Link>    
                   </li>
                   )
                   })}

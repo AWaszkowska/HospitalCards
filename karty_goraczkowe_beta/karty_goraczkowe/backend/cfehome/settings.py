@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'api', # add this to make work
     'patients',
     'doctors',
+    'bodytemperature',
     'authentic',
     'corsheaders',
 ]
@@ -146,6 +147,10 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
         'rest_framework.filters.OrderingFilter',
     ],
+}
+
+REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING': False,
 }
 
 CORS_ORIGIN_WHITELIST = [

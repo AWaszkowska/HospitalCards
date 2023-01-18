@@ -10,11 +10,7 @@ from django.db.models import Q
 #     def search(self, query):
 #         return self.get_queryset().search(query)
 
-class Doctor(models.Model):
-    name = models.CharField(max_length=100)
-    surname = models.CharField(max_length=100)
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
+
 
 class Patient(models.Model):
     name = models.CharField(max_length=100)
@@ -36,13 +32,14 @@ class Patient(models.Model):
     def __str__(self):
         return self()
 
-class BodyTemperature(models.Model):
-    patient_id = models.ForeignKey(Patient, on_delete=models.CASCADE)
-    measurement = models.DecimalField(max_digits=4, decimal_places=2)
-    measurement_date = models.DateField()
+# class BodyTemperature(models.Model):
+#     # pesel zamiast id
+#     pesel = models.ForeignKey(Patient, on_delete=models.CASCADE)
+#     measurement = models.DecimalField(max_digits=4, decimal_places=2)
+#     measurement_date = models.DateField()
 
-    def __str__(self):
-        return self()
+#     def __str__(self):
+#         return self()
 
 
 # class PatientQuerySet(models.QuerySet):

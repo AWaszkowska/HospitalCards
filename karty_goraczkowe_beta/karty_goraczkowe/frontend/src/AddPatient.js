@@ -21,7 +21,7 @@ function AddPatient() {
     let handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let res = await fetch('http://127.0.0.1:8000/api/patients/gitbagh',{
+            let res = await fetch('http://127.0.0.1:8000/api/patients/',{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

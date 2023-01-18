@@ -1,8 +1,7 @@
 from rest_framework import serializers
 
 from .models import Patient
-from .models import BodyTemperature
-from .models import Doctor
+# from .models import Doctor
 
 class PatientSerializer(serializers.ModelSerializer):
    
@@ -17,24 +16,24 @@ class PatientSerializer(serializers.ModelSerializer):
             'gender',
         ]
 
-class BodyTemperatureSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BodyTemperature
-        fields = [
-            'patient_id',
-            'measurement',
-            'measurement_date',
-        ]
+# class BodyTemperatureSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = BodyTemperature
+#         fields = [
+#             'pesel',
+#             'measurement',
+#             'measurement_date',
+#         ]
 
-class DoctorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Doctor
-        fields = [
-            'name',
-            'surname',
-            'username',
-            'password',
-        ]
+# class DoctorSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Doctor
+#         fields = [
+#             'name',
+#             'surname',
+#             'username',
+#             'password',
+#         ]
 
     # def get_sense_of_life(self, obj): # dunno what dat for
     #     if not hasattr(obj, 'id'):

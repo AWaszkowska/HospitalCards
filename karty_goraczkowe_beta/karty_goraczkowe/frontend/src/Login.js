@@ -6,8 +6,11 @@ import { BrowserRouter as Router, Route, Routes, NavLink, Link, } from "react-ro
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Main from "./Main";
-import AllPatients from "./AllPatients";
 import AddPatient from "./AddPatient";
+import AllPatients from "./AllPatients";
+
+import AddStudy from "./AddStudy";
+import Patient from "./Patient";
 import {useRef} from 'react';
 
 
@@ -106,8 +109,10 @@ function Login() {
             )}
         <Routes>
           <Route path="/Main" element={<Main />}>
-          <Route path=":AllPatients" element={<AllPatients />} />
-          <Route path=":AddPatient" element={<AddPatient />} />
+          <Route path="AllPatients" element={<AllPatients />} />
+          <Route path="AddPatient" element={<AddPatient />} />
+          <Route path="Patient/:pesel" element={<Patient />}/>
+          <Route path="Patient/:pesel/AddStudy" element={<AddStudy />}/>
           </Route>
         </Routes>
         </Router>
